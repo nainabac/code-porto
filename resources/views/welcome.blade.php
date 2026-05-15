@@ -213,11 +213,11 @@
 <section class="col-span-4 md:col-span-12 mb-32">
 <h2 class="font-h2 text-h2 text-on-surface mb-12">Disciplines</h2>
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-gutter">
-<!-- Desain Card -->
+<!-- Design Card -->
 <div onclick="window.location.href='/design'" class="glass-panel p-6 rounded-2xl glow-accent-magenta group cursor-pointer relative overflow-hidden transition-all duration-300">
 <div class="absolute left-0 top-0 bottom-0 w-1 bg-[#ff00ff]/30 group-hover:bg-[#ff00ff] transition-colors"></div>
 <span class="material-symbols-outlined text-4xl text-[#ff00ff] mb-4 opacity-80 group-hover:opacity-100">design_services</span>
-<h3 class="font-h3 text-h3 text-on-surface mb-2">DESAIN</h3>
+<h3 class="font-h3 text-h3 text-on-surface mb-2">DESIGN</h3>
 <p class="font-body-md text-body-md text-on-surface-variant mb-6">Visual storytelling and brand identity systems.</p>
 <div class="font-label-mono text-label-mono text-[#ff00ff] uppercase border border-[#ff00ff]/30 px-3 py-1 rounded inline-block">{{ $counts['design'] }} Projects</div>
 </div>
@@ -229,11 +229,11 @@
 <p class="font-body-md text-body-md text-on-surface-variant mb-6">Complex data visualization and analytical modeling.</p>
 <div class="font-label-mono text-label-mono text-[#00ffff] uppercase border border-[#00ffff]/30 px-3 py-1 rounded inline-block">{{ $counts['data'] }} Projects</div>
 </div>
-<!-- Bisnis Card -->
+<!-- Business Card -->
 <div onclick="window.location.href='/business'" class="glass-panel p-6 rounded-2xl glow-accent-gold group cursor-pointer relative overflow-hidden transition-all duration-300">
 <div class="absolute left-0 top-0 bottom-0 w-1 bg-[#ffd700]/30 group-hover:bg-[#ffd700] transition-colors"></div>
 <span class="material-symbols-outlined text-4xl text-[#ffd700] mb-4 opacity-80 group-hover:opacity-100">monitoring</span>
-<h3 class="font-h3 text-h3 text-on-surface mb-2">BISNIS</h3>
+<h3 class="font-h3 text-h3 text-on-surface mb-2">BUSINESS</h3>
 <p class="font-body-md text-body-md text-on-surface-variant mb-6">Strategic planning, operations, and market analysis.</p>
 <div class="font-label-mono text-label-mono text-[#ffd700] uppercase border border-[#ffd700]/30 px-3 py-1 rounded inline-block">{{ $counts['business'] }} Projects</div>
 </div>
