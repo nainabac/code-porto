@@ -164,21 +164,21 @@
 <span class="font-body-lg text-body-lg text-on-surface">{{ $project->created_at->format('Y') }}</span>
 </div>
 <div class="flex flex-col gap-2">
-<span class="font-label-mono text-label-mono text-on-surface-variant uppercase">Role</span>
-<span class="font-body-lg text-body-lg text-on-surface">Analyst</span>
+<span class="font-label-mono text-label-mono text-on-surface-variant uppercase">Client/Role</span>
+<span class="font-body-lg text-body-lg text-on-surface">{{ $project->client ?? 'Analyst' }}</span>
 </div>
+@if($project->tech_stack)
 <div class="flex flex-col gap-2">
-<span class="font-label-mono text-label-mono text-on-surface-variant uppercase">Tech Stack</span>
+<span class="font-label-mono text-label-mono text-on-surface-variant uppercase">{{ $project->category === 'data' ? 'Tech Stack' : 'Tools' }}</span>
 <div class="flex flex-wrap gap-2">
-    @if($project->tech_stack)
         @foreach(explode(',', $project->tech_stack) as $tech)
             @if(trim($tech))
                 <span class="px-2 py-1 border border-accent-data/50 text-accent-data font-label-mono text-label-mono rounded text-xs">{{ trim($tech) }}</span>
             @endif
         @endforeach
-    @endif
 </div>
 </div>
+@endif
 </section>
 <!-- Overview Section -->
 <section class="mb-20 max-w-3xl">
@@ -187,6 +187,7 @@
                 {{ $project->description }}
             </p>
 </section>
+@if($project->category === 'data')
 <!-- Key Insights (Bento Grid Style) -->
 <section class="mb-20">
 <h2 class="font-h2 text-h2 text-on-surface mb-8">Key Insights</h2>
@@ -287,6 +288,7 @@ def transform_sales_data(df):
 </div>
 </div>
 </section>
+@endif
 <!-- CTAs -->
 <section class="flex flex-col sm:flex-row gap-4 justify-center items-center mb-24 border-t border-outline-variant/20 pt-12">
 @if($project->github_url)

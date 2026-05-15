@@ -176,7 +176,7 @@
                 <div id="recent-projects" class="xl:col-span-2 glass-panel rounded-xl border border-outline-variant/30 flex flex-col overflow-hidden">
                     <div class="p-6 border-b border-outline-variant/20 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
                         <h2 class="font-bold text-lg">Recent Projects</h2>
-                        <button onclick="openModal('newProjectModal')" class="font-label-mono text-xs text-purple-400 border border-purple-400/30 px-3 py-1.5 rounded hover:bg-purple-500/10 transition-colors flex items-center gap-1">
+                        <button onclick="openModal('newProjectModal'); handleCategoryChange('new');" class="font-label-mono text-xs text-purple-400 border border-purple-400/30 px-3 py-1.5 rounded hover:bg-purple-500/10 transition-colors flex items-center gap-1">
                             <span class="material-symbols-outlined text-[14px]">add</span> New Project
                         </button>
                     </div>
@@ -415,13 +415,15 @@
                             <label class="block text-xs font-label-mono text-on-surface-variant mb-1 uppercase">Description</label>
                             <textarea name="description" rows="4" required class="w-full bg-surface-container border border-outline-variant/50 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-purple-500 text-on-surface"></textarea>
                         </div>
-                        <div class="md:col-span-2">
-                            <label class="block text-xs font-label-mono text-on-surface-variant mb-1 uppercase">Tech Stack (comma separated)</label>
-                            <input type="text" name="tech_stack" placeholder="e.g. Python, Pandas, SQL" class="w-full bg-surface-container border border-outline-variant/50 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-purple-500 text-on-surface">
-                        </div>
-                        <div class="md:col-span-2">
-                            <label class="block text-xs font-label-mono text-on-surface-variant mb-1 uppercase">GitHub URL (optional)</label>
-                            <input type="url" name="github_url" class="w-full bg-surface-container border border-outline-variant/50 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-purple-500 text-on-surface">
+                        <div class="md:col-span-2 space-y-4" id="category_specific_fields">
+                            <div id="tech_stack_container">
+                                <label id="tech_stack_label" class="block text-xs font-label-mono text-on-surface-variant mb-1 uppercase">Tech Stack (comma separated)</label>
+                                <input type="text" name="tech_stack" id="tech_stack" placeholder="e.g. Python, Pandas, SQL" class="w-full bg-surface-container border border-outline-variant/50 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-purple-500 text-on-surface">
+                            </div>
+                            <div id="github_url_container">
+                                <label id="github_url_label" class="block text-xs font-label-mono text-on-surface-variant mb-1 uppercase">GitHub URL (optional)</label>
+                                <input type="url" name="github_url" id="github_url" class="w-full bg-surface-container border border-outline-variant/50 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-purple-500 text-on-surface">
+                            </div>
                         </div>
                         <div class="md:col-span-2">
                             <label class="block text-xs font-label-mono text-on-surface-variant mb-1 uppercase">Project PDF (optional)</label>
@@ -525,13 +527,15 @@
                             <label class="block text-xs font-label-mono text-on-surface-variant mb-1 uppercase">Description</label>
                             <textarea name="description" id="edit_description" rows="4" required class="w-full bg-surface-container border border-outline-variant/50 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-primary text-on-surface"></textarea>
                         </div>
-                        <div>
-                            <label class="block text-xs font-label-mono text-on-surface-variant mb-1 uppercase">Tech Stack (comma separated)</label>
-                            <input type="text" name="tech_stack" id="edit_tech_stack" placeholder="React, Tailwind, Laravel" class="w-full bg-surface-container border border-outline-variant/50 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-primary text-on-surface">
-                        </div>
-                        <div>
-                            <label class="block text-xs font-label-mono text-on-surface-variant mb-1 uppercase">GitHub URL</label>
-                            <input type="url" name="github_url" id="edit_github_url" class="w-full bg-surface-container border border-outline-variant/50 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-primary text-on-surface">
+                        <div class="md:col-span-2 space-y-4" id="edit_category_specific_fields">
+                            <div id="edit_tech_stack_container">
+                                <label id="edit_tech_stack_label" class="block text-xs font-label-mono text-on-surface-variant mb-1 uppercase">Tech Stack (comma separated)</label>
+                                <input type="text" name="tech_stack" id="edit_tech_stack" placeholder="React, Tailwind, Laravel" class="w-full bg-surface-container border border-outline-variant/50 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-primary text-on-surface">
+                            </div>
+                            <div id="edit_github_url_container">
+                                <label id="edit_github_url_label" class="block text-xs font-label-mono text-on-surface-variant mb-1 uppercase">GitHub URL</label>
+                                <input type="url" name="github_url" id="edit_github_url" class="w-full bg-surface-container border border-outline-variant/50 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-primary text-on-surface">
+                            </div>
                         </div>
                         <div class="md:col-span-2">
                             <label class="block text-xs font-label-mono text-on-surface-variant mb-1 uppercase">Cover Image (leave blank to keep current)</label>
@@ -724,6 +728,38 @@
             document.getElementById(id).classList.add('hidden');
             document.getElementById(id).classList.remove('flex');
         }
+        function handleCategoryChange(modalType) {
+            const categorySelect = modalType === 'new' ? document.querySelector('#newProjectModal select[name="category"]') : document.getElementById('edit_category');
+            const category = categorySelect.value;
+            
+            const prefix = modalType === 'new' ? '' : 'edit_';
+            const techStackContainer = document.getElementById(prefix + 'tech_stack_container');
+            const githubUrlContainer = document.getElementById(prefix + 'github_url_container');
+            const techStackLabel = document.getElementById(prefix + 'tech_stack_label');
+            const githubUrlLabel = document.getElementById(prefix + 'github_url_label');
+            const techStackInput = document.getElementById(prefix + 'tech_stack');
+
+            if (category === 'data') {
+                techStackContainer.classList.remove('hidden');
+                githubUrlContainer.classList.remove('hidden');
+                techStackLabel.innerText = 'Tech Stack (comma separated)';
+                githubUrlLabel.innerText = 'GitHub URL (optional)';
+                techStackInput.placeholder = 'e.g. Python, Pandas, SQL';
+            } else if (category === 'design' || category === 'uiux') {
+                techStackContainer.classList.remove('hidden');
+                githubUrlContainer.classList.remove('hidden');
+                techStackLabel.innerText = 'Tools Used (e.g. Figma, Adobe XD)';
+                githubUrlLabel.innerText = 'Project Link (Figma/Behance)';
+                techStackInput.placeholder = 'e.g. Figma, Photoshop';
+            } else if (category === 'business') {
+                techStackContainer.classList.add('hidden');
+                githubUrlContainer.classList.add('hidden');
+            }
+        }
+
+        document.querySelector('#newProjectModal select[name="category"]').addEventListener('change', () => handleCategoryChange('new'));
+        document.getElementById('edit_category').addEventListener('change', () => handleCategoryChange('edit'));
+
         function editProject(project) {
             const form = document.getElementById('editProjectForm');
             form.action = `/admin/projects/${project.id}`;
@@ -736,6 +772,7 @@
             document.getElementById('edit_github_url').value = project.github_url || '';
             document.getElementById('edit_is_published').checked = !!project.is_published;
             
+            handleCategoryChange('edit');
             openModal('editProjectModal');
         }
         function editJournal(journal) {
