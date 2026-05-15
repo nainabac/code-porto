@@ -194,7 +194,13 @@
                                 @forelse($projects ?? [] as $project)
                                 <tr class="border-b border-outline-variant/10 hover:bg-surface-container-high/50 transition-colors">
                                     <td class="p-4 font-bold">{{ $project->title }}</td>
-                                    <td class="p-4"><span class="px-2 py-1 text-xs rounded bg-surface-container-highest border border-outline-variant/30 text-on-surface-variant capitalize">{{ $project->category }}</span></td>
+                                    <td class="p-4">
+                                        <div class="flex flex-wrap gap-1">
+                                            @foreach($project->category ?? [] as $cat)
+                                                <span class="px-2 py-1 text-[10px] rounded bg-surface-container-highest border border-outline-variant/30 text-on-surface-variant capitalize">{{ $cat }}</span>
+                                            @endforeach
+                                        </div>
+                                    </td>
                                     <td class="p-4">
                                         @if($project->is_published)
                                             <span class="px-2 py-1 text-xs rounded bg-green-500/10 text-green-400 border border-green-500/20">Published</span>
