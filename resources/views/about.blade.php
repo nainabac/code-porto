@@ -414,14 +414,21 @@
 </footer>
         <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // Radar Chart Logic
+                        // Radar Chart Logic
             const ctx = document.getElementById('skillRadar');
             if (ctx) {
                 const skillsData = @json($skills);
                 
-                // Group by category or just take top 7 skills for best visualization
-                const labels = skillsData.slice(0, 7).map(s => s.name);
-                const proficiencies = skillsData.slice(0, 7).map(s => s.proficiency || 80);
+                // Aggregate data by category
+                const categoryStats = {};
+                skillsData.forEach(skill => {
+                    const cat = skill.category || 'Other';
+                    categoryStats[cat] = (categoryStats[cat] || 0) + 1;
+                });
+
+                // Get labels and values
+                const labels = Object.keys(categoryStats).map(cat => cat.charAt(0).toUpperCase() + cat.slice(1));
+                const dataValues = Object.values(categoryStats);
 
                 if (labels.length > 0) {
                     new Chart(ctx, {
@@ -429,8 +436,8 @@
                         data: {
                             labels: labels,
                             datasets: [{
-                                label: 'Proficiency',
-                                data: proficiencies,
+                                label: 'Skill Count',
+                                data: dataValues,
                                 fill: true,
                                 backgroundColor: 'rgba(196, 198, 210, 0.2)',
                                 borderColor: '#c4c6d2',
@@ -452,11 +459,11 @@
                                     grid: { color: 'rgba(144, 144, 150, 0.2)' },
                                     pointLabels: {
                                         color: '#c7c6cc',
-                                        font: { family: 'JetBrains Mono', size: 10 }
+                                        font: { family: 'JetBrains Mono', size: 12, weight: 'bold' }
                                     },
-                                    ticks: { display: false, stepSize: 20 },
+                                    ticks: { display: false },
                                     suggestedMin: 0,
-                                    suggestedMax: 100
+                                    suggestedMax: Math.max(...dataValues) + 1
                                 }
                             },
                             plugins: {
