@@ -310,38 +310,76 @@ def transform_sales_data(df):
 @endif
 </section>
 <!-- Navigation Next/Prev -->
-<nav class="flex justify-between items-center glass-surface glass-border p-6 rounded-xl">
-<a class="flex flex-col gap-1 group" href="#">
-<span class="font-label-mono text-label-mono text-on-surface-variant flex items-center gap-1 group-hover:text-primary transition-colors">
-<span class="material-symbols-outlined text-sm">arrow_left</span> Previous Project
-                </span>
-<span class="font-h3 text-h3 text-on-surface">Customer Churn Model</span>
-</a>
-<a class="flex flex-col gap-1 items-end group" href="#">
-<span class="font-label-mono text-label-mono text-on-surface-variant flex items-center gap-1 group-hover:text-primary transition-colors">
-                    Next Project <span class="material-symbols-outlined text-sm">arrow_right</span>
-</span>
-<span class="font-h3 text-h3 text-on-surface">Inventory Forecasting</span>
-</a>
-</nav>
-</main>
-<!-- Footer -->
-<footer class="w-full py-12 bg-surface-container-lowest border-t border-outline-variant/20 mt-auto">
-<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter px-margin-mobile md:px-margin-desktop max-w-[1280px] mx-auto">
-<div class="col-span-1 md:col-span-4 flex items-center gap-2 mb-2 md:mb-0">
-    <div class="w-8 h-8 rounded bg-primary/10 border border-primary/30 flex items-center justify-center">
-        <span class="material-symbols-outlined text-primary text-[20px]">blur_on</span>
+<nav class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-12">
+    @if($prev)
+    <a href="{{ route('project.show', $prev) }}" class="group relative flex flex-col gap-2 p-8 rounded-2xl glass-panel border border-outline-variant/30 hover:border-primary/60 transition-all duration-500 overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+        <div class="flex items-center gap-2 text-on-surface-variant font-label-mono text-xs uppercase tracking-widest group-hover:text-primary transition-colors">
+            <span class="material-symbols-outlined text-[16px] group-hover:-translate-x-1 transition-transform">west</span>
+            Previous Project
+        </div>
+        <span class="font-h3 text-xl md:text-2xl text-on-surface group-hover:translate-x-2 transition-transform duration-500">{{ $prev->title }}</span>
+    </a>
+    @else
+    <div class="hidden md:flex p-8 rounded-2xl border border-outline-variant/10 opacity-30 flex-col gap-2">
+        <div class="flex items-center gap-2 text-on-surface-variant font-label-mono text-xs uppercase tracking-widest">
+            <span class="material-symbols-outlined text-[16px]">west</span>
+            No Previous Project
+        </div>
+        <span class="font-h3 text-xl md:text-2xl text-on-surface">End of Archive</span>
     </div>
-    <span class="font-display text-h3 tracking-tighter text-on-surface">whoizney.</span>
+    @endif
+
+    @if($next)
+    <a href="{{ route('project.show', $next) }}" class="group relative flex flex-col gap-2 p-8 rounded-2xl glass-panel border border-outline-variant/30 hover:border-primary/60 items-end text-right transition-all duration-500 overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-bl from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+        <div class="flex items-center gap-2 text-on-surface-variant font-label-mono text-xs uppercase tracking-widest group-hover:text-primary transition-colors">
+            Next Project
+            <span class="material-symbols-outlined text-[16px] group-hover:translate-x-1 transition-transform">east</span>
+        </div>
+        <span class="font-h3 text-xl md:text-2xl text-on-surface group-hover:-translate-x-2 transition-transform duration-500">{{ $next->title }}</span>
+    </a>
+    @else
+    <div class="p-8 rounded-2xl border border-outline-variant/10 opacity-30 flex flex-col gap-2 items-end text-right">
+        <div class="flex items-center gap-2 text-on-surface-variant font-label-mono text-xs uppercase tracking-widest">
+            No Next Project
+            <span class="material-symbols-outlined text-[16px]">east</span>
+        </div>
+        <span class="font-h3 text-xl md:text-2xl text-on-surface">Beginning of Journey</span>
+    </div>
+    @endif
+</nav>
+
+<div class="flex justify-center mt-12">
+    <a href="/data" class="font-label-mono text-xs text-on-surface-variant hover:text-primary transition-colors flex items-center gap-2 uppercase tracking-[0.2em]">
+        <span class="material-symbols-outlined text-[18px]">grid_view</span>
+        Back to Archive
+    </a>
 </div>
-<div class="col-span-1 md:col-span-4 text-left md:text-right font-body-md text-body-md text-on-surface-variant">
-                © 2024 {{ \App\Models\User::first()->name ?? 'Naila Hafidz Bachtiar' }}. Built with technical precision.
+
+</main>
+
+<!-- Footer -->
+<footer class="w-full py-16 bg-surface-container-lowest border-t border-outline-variant/20 mt-32">
+    <div class="max-w-[1280px] mx-auto px-margin-mobile md:px-margin-desktop">
+        <div class="flex flex-col md:flex-row justify-between items-center gap-8">
+            <div class="flex items-center gap-3 group">
+                <div class="w-10 h-10 rounded-lg bg-primary/10 border border-primary/30 flex items-center justify-center group-hover:bg-primary/20 transition-all duration-300">
+                    <span class="material-symbols-outlined text-primary text-[24px]">blur_on</span>
+                </div>
+                <span class="font-display text-2xl tracking-tighter text-on-surface group-hover:text-primary transition-colors">whoizney.</span>
             </div>
-<div class="md:col-span-6 flex gap-8 justify-start md:justify-end items-center">
-<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="#">Terms</a>
-<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="#">Privacy</a>
-<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="#">Sitemap</a>
-</div>
-</div>
+            
+            <nav class="flex flex-wrap justify-center gap-x-8 gap-y-4 font-body-md text-sm text-on-surface-variant">
+                <a class="hover:text-primary transition-colors" href="#">Terms of Service</a>
+                <a class="hover:text-primary transition-colors" href="#">Privacy Policy</a>
+                <a class="hover:text-primary transition-colors" href="#">Sitemap</a>
+            </nav>
+
+            <p class="font-body-md text-sm text-on-surface-variant opacity-60">
+                © {{ date('Y') }} {{ \App\Models\User::first()->name ?? 'Naila Hafidz Bachtiar' }}
+            </p>
+        </div>
+    </div>
 </footer>
 </body></html>

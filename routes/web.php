@@ -35,7 +35,9 @@ Route::get('/data', function () {
 });
 
 Route::get('/project/{project}', function (App\Models\Project $project) {
-    return view('project-detail', compact('project'));
+    $prev = App\Models\Project::where('id', '<', $project->id)->where('is_published', true)->latest('id')->first();
+    $next = App\Models\Project::where('id', '>', $project->id)->where('is_published', true)->oldest('id')->first();
+    return view('project-detail', compact('project', 'prev', 'next'));
 })->name('project.show');
 
 Route::get('/design', function () {
