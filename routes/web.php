@@ -6,10 +6,10 @@ use Illuminate\Support\Facades\Storage;
 
 Route::get('/', function () {
     $counts = [
-        'data' => \App\Models\Project::where('category', 'data')->count(),
-        'design' => \App\Models\Project::where('category', 'design')->count(),
-        'business' => \App\Models\Project::where('category', 'business')->count(),
-        'uiux' => \App\Models\Project::where('category', 'uiux')->count(),
+        'data' => \App\Models\Project::whereJsonContains('category', 'data')->count(),
+        'design' => \App\Models\Project::whereJsonContains('category', 'design')->count(),
+        'business' => \App\Models\Project::whereJsonContains('category', 'business')->count(),
+        'uiux' => \App\Models\Project::whereJsonContains('category', 'uiux')->count(),
     ];
     return view('welcome', compact('counts'));
 });
@@ -30,7 +30,7 @@ Route::get('/journal/{journal}', function (\App\Models\Journal $journal) {
 })->name('journal.show');
 
 Route::get('/data', function () {
-    $projects = App\Models\Project::where('category', 'data')->where('is_published', true)->get();
+    $projects = App\Models\Project::whereJsonContains('category', 'data')->where('is_published', true)->get();
     return view('data-projects', compact('projects'));
 });
 
@@ -39,17 +39,17 @@ Route::get('/project/{project}', function (App\Models\Project $project) {
 })->name('project.show');
 
 Route::get('/design', function () {
-    $projects = App\Models\Project::where('category', 'design')->where('is_published', true)->get();
+    $projects = App\Models\Project::whereJsonContains('category', 'design')->where('is_published', true)->get();
     return view('design-projects', compact('projects'));
 });
 
 Route::get('/business', function () {
-    $projects = App\Models\Project::where('category', 'business')->where('is_published', true)->get();
+    $projects = App\Models\Project::whereJsonContains('category', 'business')->where('is_published', true)->get();
     return view('business-projects', compact('projects'));
 });
 
 Route::get('/ui-ux', function () {
-    $projects = App\Models\Project::where('category', 'uiux')->where('is_published', true)->get();
+    $projects = App\Models\Project::whereJsonContains('category', 'uiux')->where('is_published', true)->get();
     return view('uiux-projects', compact('projects'));
 });
 

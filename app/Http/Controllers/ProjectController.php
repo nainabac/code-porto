@@ -12,7 +12,8 @@ class ProjectController extends Controller
     {
         $validated = $request->validate([
             'title' => 'required|string|max:255',
-            'category' => 'required|string|in:data,design,business,uiux',
+            'category' => 'required|array',
+            'category.*' => 'string|in:data,design,business,uiux',
             'client' => 'nullable|string|max:255',
             'duration' => 'nullable|string|max:255',
             'description' => 'required|string',
@@ -43,7 +44,8 @@ class ProjectController extends Controller
     {
         $validated = $request->validate([
             'title' => 'required|string|max:255',
-            'category' => 'required|string|in:data,design,business,uiux',
+            'category' => 'required|array',
+            'category.*' => 'string|in:data,design,business,uiux',
             'client' => 'nullable|string|max:255',
             'duration' => 'nullable|string|max:255',
             'description' => 'required|string',

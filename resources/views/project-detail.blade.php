@@ -157,7 +157,9 @@
 <section class="mb-16 grid grid-cols-2 md:grid-cols-4 gap-gutter glass-surface glass-border p-6 rounded-lg">
 <div class="flex flex-col gap-2">
 <span class="font-label-mono text-label-mono text-on-surface-variant uppercase">Discipline</span>
-<span class="font-body-lg text-body-lg text-accent-data">{{ ucfirst($project->category) }}</span>
+<span class="font-body-lg text-body-lg text-accent-data">
+    {{ collect($project->category)->map(fn($c) => $c === 'uiux' ? 'UI/UX' : ucfirst($c))->join(', ') }}
+</span>
 </div>
 <div class="flex flex-col gap-2">
 <span class="font-label-mono text-label-mono text-on-surface-variant uppercase">Year</span>
@@ -169,7 +171,7 @@
 </div>
 @if($project->tech_stack)
 <div class="flex flex-col gap-2">
-<span class="font-label-mono text-label-mono text-on-surface-variant uppercase">{{ $project->category === 'data' ? 'Tech Stack' : 'Tools' }}</span>
+<span class="font-label-mono text-label-mono text-on-surface-variant uppercase">{{ in_array('data', $project->category ?? []) ? 'Tech Stack' : 'Tools' }}</span>
 <div class="flex flex-wrap gap-2">
         @foreach(explode(',', $project->tech_stack) as $tech)
             @if(trim($tech))
@@ -187,7 +189,7 @@
                 {{ $project->description }}
             </p>
 </section>
-@if($project->category === 'data')
+@if(in_array('data', $project->category ?? []))
 <!-- Key Insights (Bento Grid Style) -->
 <section class="mb-20">
 <h2 class="font-h2 text-h2 text-on-surface mb-8">Key Insights</h2>

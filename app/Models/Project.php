@@ -18,4 +18,9 @@ class Project extends Model
         'github_url',
         'pdf_url',
     ];
+
+    protected $casts = [
+        'category' => 'array',
+        'is_published' => 'boolean',
+    ];
 }

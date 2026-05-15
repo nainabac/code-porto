@@ -395,13 +395,25 @@
                             <input type="text" name="title" required class="w-full bg-surface-container border border-outline-variant/50 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-purple-500 text-on-surface">
                         </div>
                         <div>
-                            <label class="block text-xs font-label-mono text-on-surface-variant mb-1 uppercase">Category</label>
-                            <select name="category" required class="w-full bg-surface-container border border-outline-variant/50 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-purple-500 text-on-surface">
-                                <option value="data">Data</option>
-                                <option value="design">Design</option>
-                                <option value="business">Business</option>
-                                <option value="uiux">UI/UX</option>
-                            </select>
+                            <label class="block text-xs font-label-mono text-on-surface-variant mb-2 uppercase">Disciplines (Select all that apply)</label>
+                            <div class="grid grid-cols-2 gap-2">
+                                <label class="flex items-center gap-2 bg-surface-container/50 p-2 rounded border border-outline-variant/30 cursor-pointer hover:bg-surface-container transition-colors">
+                                    <input type="checkbox" name="category[]" value="data" class="category-checkbox rounded bg-surface border-outline-variant text-purple-500">
+                                    <span class="text-xs">Data</span>
+                                </label>
+                                <label class="flex items-center gap-2 bg-surface-container/50 p-2 rounded border border-outline-variant/30 cursor-pointer hover:bg-surface-container transition-colors">
+                                    <input type="checkbox" name="category[]" value="design" class="category-checkbox rounded bg-surface border-outline-variant text-purple-500">
+                                    <span class="text-xs">Design</span>
+                                </label>
+                                <label class="flex items-center gap-2 bg-surface-container/50 p-2 rounded border border-outline-variant/30 cursor-pointer hover:bg-surface-container transition-colors">
+                                    <input type="checkbox" name="category[]" value="business" class="category-checkbox rounded bg-surface border-outline-variant text-purple-500">
+                                    <span class="text-xs">Business</span>
+                                </label>
+                                <label class="flex items-center gap-2 bg-surface-container/50 p-2 rounded border border-outline-variant/30 cursor-pointer hover:bg-surface-container transition-colors">
+                                    <input type="checkbox" name="category[]" value="uiux" class="category-checkbox rounded bg-surface border-outline-variant text-purple-500">
+                                    <span class="text-xs">UI/UX</span>
+                                </label>
+                            </div>
                         </div>
                         <div>
                             <label class="block text-xs font-label-mono text-on-surface-variant mb-1 uppercase">Client/Role</label>
@@ -511,13 +523,25 @@
                             <input type="text" name="title" id="edit_title" required class="w-full bg-surface-container border border-outline-variant/50 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-primary text-on-surface">
                         </div>
                         <div>
-                            <label class="block text-xs font-label-mono text-on-surface-variant mb-1 uppercase">Category</label>
-                            <select name="category" id="edit_category" required class="w-full bg-surface-container border border-outline-variant/50 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-primary text-on-surface">
-                                <option value="data">Data</option>
-                                <option value="design">Design</option>
-                                <option value="business">Business</option>
-                                <option value="uiux">UI/UX</option>
-                            </select>
+                            <label class="block text-xs font-label-mono text-on-surface-variant mb-2 uppercase">Disciplines (Select all that apply)</label>
+                            <div class="grid grid-cols-2 gap-2">
+                                <label class="flex items-center gap-2 bg-surface-container/50 p-2 rounded border border-outline-variant/30 cursor-pointer hover:bg-surface-container transition-colors">
+                                    <input type="checkbox" name="category[]" value="data" class="edit-category-checkbox rounded bg-surface border-outline-variant text-primary">
+                                    <span class="text-xs">Data</span>
+                                </label>
+                                <label class="flex items-center gap-2 bg-surface-container/50 p-2 rounded border border-outline-variant/30 cursor-pointer hover:bg-surface-container transition-colors">
+                                    <input type="checkbox" name="category[]" value="design" class="edit-category-checkbox rounded bg-surface border-outline-variant text-primary">
+                                    <span class="text-xs">Design</span>
+                                </label>
+                                <label class="flex items-center gap-2 bg-surface-container/50 p-2 rounded border border-outline-variant/30 cursor-pointer hover:bg-surface-container transition-colors">
+                                    <input type="checkbox" name="category[]" value="business" class="edit-category-checkbox rounded bg-surface border-outline-variant text-primary">
+                                    <span class="text-xs">Business</span>
+                                </label>
+                                <label class="flex items-center gap-2 bg-surface-container/50 p-2 rounded border border-outline-variant/30 cursor-pointer hover:bg-surface-container transition-colors">
+                                    <input type="checkbox" name="category[]" value="uiux" class="edit-category-checkbox rounded bg-surface border-outline-variant text-primary">
+                                    <span class="text-xs">UI/UX</span>
+                                </label>
+                            </div>
                         </div>
                         <div>
                             <label class="block text-xs font-label-mono text-on-surface-variant mb-1 uppercase">Client/Role</label>
@@ -729,8 +753,11 @@
             document.getElementById(id).classList.remove('flex');
         }
         function handleCategoryChange(modalType) {
-            const categorySelect = modalType === 'new' ? document.querySelector('#newProjectModal select[name="category"]') : document.getElementById('edit_category');
-            const category = categorySelect.value;
+            const checkboxes = modalType === 'new' 
+                ? document.querySelectorAll('#newProjectModal .category-checkbox:checked')
+                : document.querySelectorAll('#editProjectModal .edit-category-checkbox:checked');
+            
+            const selected = Array.from(checkboxes).map(cb => cb.value);
             
             const prefix = modalType === 'new' ? '' : 'edit_';
             const techStackContainer = document.getElementById(prefix + 'tech_stack_container');
@@ -739,33 +766,47 @@
             const githubUrlLabel = document.getElementById(prefix + 'github_url_label');
             const techStackInput = document.getElementById(prefix + 'tech_stack');
 
-            if (category === 'data') {
+            // If it contains 'data', show data fields.
+            // If it contains 'design' or 'uiux', adjust labels.
+            // If only 'business', hide them.
+            
+            if (selected.includes('data')) {
                 techStackContainer.classList.remove('hidden');
                 githubUrlContainer.classList.remove('hidden');
                 techStackLabel.innerText = 'Tech Stack (comma separated)';
                 githubUrlLabel.innerText = 'GitHub URL (optional)';
                 techStackInput.placeholder = 'e.g. Python, Pandas, SQL';
-            } else if (category === 'design' || category === 'uiux') {
+            } else if (selected.includes('design') || selected.includes('uiux')) {
                 techStackContainer.classList.remove('hidden');
                 githubUrlContainer.classList.remove('hidden');
                 techStackLabel.innerText = 'Tools Used (e.g. Figma, Adobe XD)';
                 githubUrlLabel.innerText = 'Project Link (Figma/Behance)';
                 techStackInput.placeholder = 'e.g. Figma, Photoshop';
-            } else if (category === 'business') {
+            } else {
                 techStackContainer.classList.add('hidden');
                 githubUrlContainer.classList.add('hidden');
             }
         }
 
-        document.querySelector('#newProjectModal select[name="category"]').addEventListener('change', () => handleCategoryChange('new'));
-        document.getElementById('edit_category').addEventListener('change', () => handleCategoryChange('edit'));
+        // Add event listeners to checkboxes
+        document.querySelectorAll('.category-checkbox').forEach(cb => {
+            cb.addEventListener('change', () => handleCategoryChange('new'));
+        });
+        document.querySelectorAll('.edit-category-checkbox').forEach(cb => {
+            cb.addEventListener('change', () => handleCategoryChange('edit'));
+        });
 
         function editProject(project) {
             const form = document.getElementById('editProjectForm');
             form.action = `/admin/projects/${project.id}`;
             
             document.getElementById('edit_title').value = project.title;
-            document.getElementById('edit_category').value = project.category;
+            
+            // Set checkboxes
+            document.querySelectorAll('.edit-category-checkbox').forEach(cb => {
+                cb.checked = project.category && project.category.includes(cb.value);
+            });
+
             document.getElementById('edit_client').value = project.client || '';
             document.getElementById('edit_description').value = project.description;
             document.getElementById('edit_tech_stack').value = project.tech_stack || '';
