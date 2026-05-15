@@ -414,29 +414,46 @@
 </footer>
         <script>
         document.addEventListener('DOMContentLoaded', () => {
-                        // Radar Chart Logic
+                                    // Radar Chart Logic - Diamond Shape (4 Axis)
             const ctx = document.getElementById('skillRadar');
             if (ctx) {
                 const skillsData = @json($skills);
                 
-                // Aggregate data by category
-                const categoryStats = {};
+                // Fixed Categories for the Diamond shape
+                const categories = ['Data', 'Business', 'UI/UX', 'Design'];
+                const categoryScores = { 'Data': 0, 'Business': 0, 'UI/UX': 0, 'Design': 0 };
+
+                // Mapping logic for multi-category skills
                 skillsData.forEach(skill => {
-                    const cat = skill.category || 'Other';
-                    categoryStats[cat] = (categoryStats[cat] || 0) + 1;
+                    const name = skill.name.toLowerCase();
+                    const dbCat = (skill.category || '').toLowerCase();
+
+                    // 1. Check by Name for multi-category attribution
+                    if (name.includes('figma') || name.includes('adobe') || name.includes('canva')) {
+                        categoryScores['Design']++;
+                        categoryScores['UI/UX']++;
+                    } else if (name.includes('tableau') || name.includes('sql') || name.includes('python') || name.includes('looker') || name.includes('sheets')) {
+                        categoryScores['Data']++;
+                    } else if (name.includes('jira') || name.includes('sap') || name.includes('business') || name.includes('slack')) {
+                        categoryScores['Business']++;
+                    }
+                    
+                    // 2. Fallback to DB Category if not caught by name
+                    else if (dbCat.includes('data')) categoryScores['Data']++;
+                    else if (dbCat.includes('business')) categoryScores['Business']++;
+                    else if (dbCat.includes('ui') || dbCat.includes('ux')) categoryScores['UI/UX']++;
+                    else if (dbCat.includes('design')) categoryScores['Design']++;
                 });
 
-                // Get labels and values
-                const labels = Object.keys(categoryStats).map(cat => cat.charAt(0).toUpperCase() + cat.slice(1));
-                const dataValues = Object.values(categoryStats);
+                const dataValues = categories.map(cat => categoryScores[cat]);
 
-                if (labels.length > 0) {
+                if (skillsData.length > 0) {
                     new Chart(ctx, {
                         type: 'radar',
                         data: {
-                            labels: labels,
+                            labels: categories,
                             datasets: [{
-                                label: 'Skill Count',
+                                label: 'Expertise Level',
                                 data: dataValues,
                                 fill: true,
                                 backgroundColor: 'rgba(196, 198, 210, 0.2)',
@@ -451,7 +468,7 @@
                             responsive: true,
                             maintainAspectRatio: false,
                             elements: {
-                                line: { borderWidth: 2 }
+                                line: { borderWidth: 3, tension: 0.1 }
                             },
                             scales: {
                                 r: {
@@ -459,11 +476,11 @@
                                     grid: { color: 'rgba(144, 144, 150, 0.2)' },
                                     pointLabels: {
                                         color: '#c7c6cc',
-                                        font: { family: 'JetBrains Mono', size: 12, weight: 'bold' }
+                                        font: { family: 'JetBrains Mono', size: 14, weight: 'bold' }
                                     },
                                     ticks: { display: false },
                                     suggestedMin: 0,
-                                    suggestedMax: Math.max(...dataValues) + 1
+                                    suggestedMax: Math.max(...dataValues) + 2
                                 }
                             },
                             plugins: {
