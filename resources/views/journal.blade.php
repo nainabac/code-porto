@@ -200,25 +200,50 @@
     </div>
     <span class="font-display text-h3 tracking-tighter text-on-surface group-hover:text-primary transition-colors">whoizney.</span>
 </a>
-<!-- Navigation Links (Desktop) -->
-<nav class="hidden md:flex items-center space-x-8 font-label-mono text-label-mono">
-<a class="text-on-surface-variant hover:text-on-surface transition-colors hover:backdrop-blur-2xl hover:bg-surface-bright/20 duration-300 px-3 py-2 rounded-md" href="/">Home</a>
-<a class="text-on-surface-variant hover:text-on-surface transition-colors hover:backdrop-blur-2xl hover:bg-surface-bright/20 duration-300 px-3 py-2 rounded-md" href="/data">Work</a>
-<a class="text-on-surface-variant hover:text-on-surface transition-colors hover:backdrop-blur-2xl hover:bg-surface-bright/20 duration-300 px-3 py-2 rounded-md" href="/about">About</a>
-<a class="text-primary font-bold border-b border-primary pb-1 scale-95 transition-transform px-3 py-2" href="/journal">Journal</a>
-</nav>
-<!-- Trailing Action -->
-<div class="flex items-center gap-4">
-<button onclick="window.location.href='mailto:{{ \App\Models\User::first()->email ?? 'nailahafidzhaha@gmail.com' }}?subject=Project%20Inquiry%20-%20whoizney'" class="hidden md:inline-flex items-center justify-center font-label-mono text-label-mono text-primary-container bg-primary hover:bg-primary-fixed transition-colors rounded-full px-6 py-2.5">
-                    Hire Me
-                </button>
-<!-- Mobile Menu Toggle -->
-<button class="md:hidden text-on-surface-variant p-2">
-<span class="material-symbols-outlined">menu</span>
-</button>
-</div>
-</div>
-</header>
+                <nav class="hidden lg:flex items-center space-x-8 font-label-mono text-label-mono">
+                    <a class="text-on-surface-variant hover:text-on-surface transition-colors hover:backdrop-blur-2xl hover:bg-surface-bright/20 duration-300 px-3 py-2 rounded-md" href="/">Home</a>
+                    <a class="text-on-surface-variant hover:text-on-surface transition-colors hover:backdrop-blur-2xl hover:bg-surface-bright/20 duration-300 px-3 py-2 rounded-md" href="/data">Work</a>
+                    <a class="text-on-surface-variant hover:text-on-surface transition-colors hover:backdrop-blur-2xl hover:bg-surface-bright/20 duration-300 px-3 py-2 rounded-md" href="/about">About</a>
+                    <a class="text-primary font-bold border-b border-primary pb-1 scale-95 transition-transform px-3 py-2" href="/journal">Journal</a>
+                </nav>
+                <!-- Trailing Action -->
+                <div class="flex items-center gap-4">
+                    <button onclick="window.location.href='mailto:{{ \App\Models\User::first()->email ?? 'nailahafidzhaha@gmail.com' }}?subject=Project%20Inquiry%20-%20whoizney'" class="hidden lg:inline-flex items-center justify-center font-label-mono text-label-mono text-primary-container bg-primary hover:bg-primary-fixed transition-colors rounded-full px-6 py-2.5">
+                        Hire Me
+                    </button>
+                    <!-- Mobile Menu Toggle -->
+                    <button id="mobile-menu-button" class="lg:hidden text-on-surface-variant p-2 hover:text-primary transition-colors">
+                        <span class="material-symbols-outlined text-[32px]">menu</span>
+                    </button>
+                </div>
+        </div>
+    </header>
+
+    <!-- Mobile Menu Overlay -->
+    <div id="mobile-menu" class="fixed inset-0 bg-background/95 backdrop-blur-xl z-[100] hidden flex-col p-6 transition-all duration-300">
+        <div class="flex justify-between items-center mb-12">
+            <div class="flex items-center gap-2">
+                <div class="w-8 h-8 rounded bg-primary/10 border border-primary/30 flex items-center justify-center">
+                    <span class="material-symbols-outlined text-primary text-[20px]">blur_on</span>
+                </div>
+                <span class="font-display text-h3 tracking-tighter text-on-surface">whoizney.</span>
+            </div>
+            <button id="mobile-menu-close" class="text-on-surface-variant p-2 hover:text-primary transition-colors">
+                <span class="material-symbols-outlined text-[32px]">close</span>
+            </button>
+        </div>
+        <nav class="flex flex-col gap-6">
+            <a class="font-display text-4xl font-bold text-on-surface hover:text-primary transition-all duration-300" href="/">Home</a>
+            <a class="font-display text-4xl font-bold text-on-surface hover:text-primary transition-all duration-300" href="/data">Work</a>
+            <a class="font-display text-4xl font-bold text-on-surface hover:text-primary transition-all duration-300" href="/about">About</a>
+            <a class="font-display text-4xl font-bold text-primary transition-all duration-300" href="/journal">Journal</a>
+        </nav>
+        <div class="mt-auto">
+            <button onclick="window.location.href='mailto:{{ \App\Models\User::first()->email ?? 'nailahafidzhaha@gmail.com' }}?subject=Project%20Inquiry'" class="w-full bg-primary text-on-primary-fixed font-label-mono py-4 rounded-full font-bold uppercase tracking-widest active:scale-95 transition-all">
+                Hire Me
+            </button>
+        </div>
+    </div>
 <!-- Main Content Canvas -->
 <main class="pt-32 pb-24 px-margin-mobile md:px-margin-desktop max-w-[1280px] mx-auto min-h-screen flex flex-col relative">
     <div class="absolute top-0 right-1/4 w-[500px] h-[500px] bg-purple-600/20 rounded-full blur-[120px] -z-10 pointer-events-none"></div>
@@ -234,35 +259,34 @@
         A collection of technical deep-dives, design explorations, and industry observations from the intersection of aesthetics and engineering.
     </p>
 </section>
-<!-- Filter Pills -->
-<section class="mb-12 flex flex-wrap items-center gap-3 overflow-x-auto pb-4 hide-scrollbar">
-<button class="whitespace-nowrap px-5 py-2.5 rounded-full border border-primary bg-primary text-primary-container font-label-mono text-label-mono transition-all">All</button>
-<button class="whitespace-nowrap px-5 py-2.5 rounded-full border border-outline-variant/50 hover:border-outline text-on-surface-variant hover:text-on-surface font-label-mono text-label-mono transition-all">Design</button>
-<button class="whitespace-nowrap px-5 py-2.5 rounded-full border border-outline-variant/50 hover:border-outline text-on-surface-variant hover:text-on-surface font-label-mono text-label-mono transition-all">Tech</button>
-<button class="whitespace-nowrap px-5 py-2.5 rounded-full border border-outline-variant/50 hover:border-outline text-on-surface-variant hover:text-on-surface font-label-mono text-label-mono transition-all">Business</button>
-<button class="whitespace-nowrap px-5 py-2.5 rounded-full border border-outline-variant/50 hover:border-outline text-on-surface-variant hover:text-on-surface font-label-mono text-label-mono transition-all">Industry</button>
-</section>
+        <section class="mb-12 flex flex-wrap items-center gap-3 overflow-x-auto pb-4 hide-scrollbar">
+            <button onclick="filterJournals('All')" class="filter-btn active whitespace-nowrap px-5 py-2.5 rounded-full border border-primary bg-primary text-primary-container font-label-mono text-label-mono transition-all">All</button>
+            <button onclick="filterJournals('Design')" class="filter-btn whitespace-nowrap px-5 py-2.5 rounded-full border border-outline-variant/50 hover:border-outline text-on-surface-variant hover:text-on-surface font-label-mono text-label-mono transition-all">Design</button>
+            <button onclick="filterJournals('Tech')" class="filter-btn whitespace-nowrap px-5 py-2.5 rounded-full border border-outline-variant/50 hover:border-outline text-on-surface-variant hover:text-on-surface font-label-mono text-label-mono transition-all">Tech</button>
+            <button onclick="filterJournals('Business')" class="filter-btn whitespace-nowrap px-5 py-2.5 rounded-full border border-outline-variant/50 hover:border-outline text-on-surface-variant hover:text-on-surface font-label-mono text-label-mono transition-all">Business</button>
+            <button onclick="filterJournals('Industry')" class="filter-btn whitespace-nowrap px-5 py-2.5 rounded-full border border-outline-variant/50 hover:border-outline text-on-surface-variant hover:text-on-surface font-label-mono text-label-mono transition-all">Industry</button>
+        </section>
 <!-- Article Grid -->
 <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-@forelse($journals as $journal)
-<article onclick="window.location.href='{{ route('journal.show', $journal) }}'" class="glass-panel rounded-xl overflow-hidden group flex flex-col cursor-pointer transition-all duration-500">
-<div class="relative w-full aspect-[16/10] overflow-hidden bg-surface-container-high">
-<img alt="{{ $journal->title }}" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700 ease-out" src="{{ $journal->image_url ? asset($journal->image_url) : 'https://placehold.co/800x500/131314/c4c6d2?text=Journal+Image' }}"/>
-<div class="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent opacity-60"></div>
-</div>
-<div class="p-6 flex flex-col flex-grow">
-<div class="flex justify-between items-center mb-4">
-<span class="inline-block px-2.5 py-1 rounded border border-tertiary/30 text-tertiary font-label-mono text-[12px] uppercase tracking-wider">Archive</span>
-<span class="font-label-mono text-label-mono text-on-surface-variant flex items-center gap-1.5"><span class="material-symbols-outlined text-[16px]">schedule</span> {{ ceil(str_word_count($journal->content) / 200) }} min read</span>
-</div>
-<h2 class="font-h3 text-h3 text-on-surface group-hover:text-primary transition-colors leading-snug mb-3">{{ $journal->title }}</h2>
-<p class="font-body-md text-body-md text-on-surface-variant line-clamp-3 mb-6">{{ $journal->excerpt }}</p>
-<div class="mt-auto pt-4 border-t border-outline-variant/20 flex justify-between items-center">
-<time class="font-label-mono text-label-mono text-on-surface-variant">{{ $journal->created_at->format('M d, Y') }}</time>
-<span class="material-symbols-outlined text-outline group-hover:text-primary transition-colors transform group-hover:translate-x-1">arrow_forward</span>
-</div>
-</div>
-</article>
+            @forelse($journals as $journal)
+            <article data-category="{{ $journal->category ?? 'General' }}" onclick="window.location.href='{{ route('journal.show', $journal) }}'" class="journal-card glass-panel rounded-xl overflow-hidden group flex flex-col cursor-pointer transition-all duration-500">
+                <div class="relative w-full aspect-[16/10] overflow-hidden bg-surface-container-high">
+                    <img alt="{{ $journal->title }}" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700 ease-out" src="{{ $journal->image_url ? asset($journal->image_url) : 'https://placehold.co/800x500/131314/c4c6d2?text=Journal+Image' }}"/>
+                    <div class="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent opacity-60"></div>
+                </div>
+                <div class="p-6 flex flex-col flex-grow">
+                    <div class="flex justify-between items-center mb-4">
+                        <span class="inline-block px-2.5 py-1 rounded border border-tertiary/30 text-tertiary font-label-mono text-[12px] uppercase tracking-wider">{{ $journal->category ?? 'Archive' }}</span>
+                        <span class="font-label-mono text-label-mono text-on-surface-variant flex items-center gap-1.5"><span class="material-symbols-outlined text-[16px]">schedule</span> {{ ceil(str_word_count($journal->content) / 200) }} min read</span>
+                    </div>
+                    <h2 class="font-h3 text-h3 text-on-surface group-hover:text-primary transition-colors leading-snug mb-3">{{ $journal->title }}</h2>
+                    <p class="font-body-md text-body-md text-on-surface-variant line-clamp-3 mb-6">{{ $journal->excerpt }}</p>
+                    <div class="mt-auto pt-4 border-t border-outline-variant/20 flex justify-between items-center">
+                        <time class="font-label-mono text-label-mono text-on-surface-variant">{{ $journal->created_at->format('M d, Y') }}</time>
+                        <span class="material-symbols-outlined text-outline group-hover:text-primary transition-colors transform group-hover:translate-x-1">arrow_forward</span>
+                    </div>
+                </div>
+            </article>
 @empty
 <div class="col-span-full py-24 text-center">
     <p class="text-on-surface-variant font-label-mono italic">No thoughts or insights archived yet. Check back soon.</p>
@@ -299,4 +323,57 @@
 </div>
 </div>
 </footer>
+    <script>
+        function filterJournals(category) {
+            // Update buttons
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                if (btn.innerText === category) {
+                    btn.classList.add('bg-primary', 'text-primary-container', 'border-primary');
+                    btn.classList.remove('text-on-surface-variant', 'border-outline-variant/50');
+                } else {
+                    btn.classList.remove('bg-primary', 'text-primary-container', 'border-primary');
+                    btn.classList.add('text-on-surface-variant', 'border-outline-variant/50');
+                }
+            });
+
+            // Filter cards
+            document.querySelectorAll('.journal-card').forEach(card => {
+                if (category === 'All' || card.getAttribute('data-category') === category) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // Mobile Menu Toggle
+            const menuBtn = document.getElementById('mobile-menu-button');
+            const closeBtn = document.getElementById('mobile-menu-close');
+            const mobileMenu = document.getElementById('mobile-menu');
+
+            if (menuBtn && closeBtn && mobileMenu) {
+                menuBtn.addEventListener('click', () => {
+                    mobileMenu.classList.remove('hidden');
+                    mobileMenu.classList.add('flex');
+                    document.body.style.overflow = 'hidden';
+                });
+
+                closeBtn.addEventListener('click', () => {
+                    mobileMenu.classList.add('hidden');
+                    mobileMenu.classList.remove('flex');
+                    document.body.style.overflow = 'auto';
+                });
+
+                // Close on link click
+                mobileMenu.querySelectorAll('a').forEach(link => {
+                    link.addEventListener('click', () => {
+                        mobileMenu.classList.add('hidden');
+                        mobileMenu.classList.remove('flex');
+                        document.body.style.overflow = 'auto';
+                    });
+                });
+            }
+        });
+    </script>
 </body></html>

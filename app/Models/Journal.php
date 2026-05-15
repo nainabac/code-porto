@@ -8,6 +8,7 @@ class Journal extends Model
 {
     protected $fillable = [
         'title',
+        'category',
         'excerpt',
         'content',
         'image_url',

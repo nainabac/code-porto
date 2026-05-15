@@ -148,7 +148,7 @@
                 <span class="font-display text-h3 tracking-tighter text-on-surface">whoizney.</span>
             </div>
             <div class="col-span-1 md:col-span-4 text-center">
-                <p class="font-body-md text-body-md text-primary">© {{ date('Y') }} {{ \App\Models\User::first()->name ?? '{{ \App\Models\User::first()->name ?? 'Naila Hafidz Bachtiar' }}' }}. Built with technical precision.</p>
+                                <p class="font-body-md text-body-md text-primary">© {{ date('Y') }} {{ \App\Models\User::first()->name ?? 'Naila Hafidz Bachtiar' }}. Built with technical precision.</p>
             </div>
             <div class="col-span-1 md:col-span-4 flex justify-end gap-6">
                 <a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="#">Terms</a>

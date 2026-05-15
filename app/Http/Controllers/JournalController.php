@@ -11,7 +11,8 @@ class JournalController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'title' => 'required|string|max:255',
+                        'title' => 'required|string|max:255',
+            'category' => 'required|string',
             'excerpt' => 'nullable|string|max:500',
             'content' => 'required|string',
             'image' => 'nullable|image|max:2048',
@@ -32,7 +33,8 @@ class JournalController extends Controller
     public function update(Request $request, Journal $journal)
     {
         $validated = $request->validate([
-            'title' => 'required|string|max:255',
+                        'title' => 'required|string|max:255',
+            'category' => 'required|string',
             'excerpt' => 'nullable|string|max:500',
             'content' => 'required|string',
             'image' => 'nullable|image|max:2048',

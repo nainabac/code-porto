@@ -456,6 +456,16 @@
                             <label class="block text-xs font-label-mono text-on-surface-variant mb-1 uppercase">Title</label>
                             <input type="text" name="title" required class="w-full bg-surface-container border border-outline-variant/50 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-fuchsia-500 text-on-surface">
                         </div>
+                                                <div>
+                            <label class="block text-xs font-label-mono text-on-surface-variant mb-1 uppercase">Category</label>
+                            <select name="category" required class="w-full bg-surface-container border border-outline-variant/50 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-fuchsia-500 text-on-surface">
+                                <option value="Design">Design</option>
+                                <option value="Tech">Tech</option>
+                                <option value="Business">Business</option>
+                                <option value="Industry">Industry</option>
+                                <option value="General">General</option>
+                            </select>
+                        </div>
                         <div>
                             <label class="block text-xs font-label-mono text-on-surface-variant mb-1 uppercase">Excerpt</label>
                             <input type="text" name="excerpt" class="w-full bg-surface-container border border-outline-variant/50 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-fuchsia-500 text-on-surface">
@@ -560,6 +570,16 @@
                         <div>
                             <label class="block text-xs font-label-mono text-on-surface-variant mb-1 uppercase">Title</label>
                             <input type="text" name="title" id="edit_journal_title" required class="w-full bg-surface-container border border-outline-variant/50 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-fuchsia-500 text-on-surface">
+                        </div>
+                                                <div>
+                            <label class="block text-xs font-label-mono text-on-surface-variant mb-1 uppercase">Category</label>
+                            <select name="category" id="edit_journal_category" required class="w-full bg-surface-container border border-outline-variant/50 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-fuchsia-500 text-on-surface">
+                                <option value="Design">Design</option>
+                                <option value="Tech">Tech</option>
+                                <option value="Business">Business</option>
+                                <option value="Industry">Industry</option>
+                                <option value="General">General</option>
+                            </select>
                         </div>
                         <div>
                             <label class="block text-xs font-label-mono text-on-surface-variant mb-1 uppercase">Excerpt</label>
@@ -722,7 +742,8 @@
             const form = document.getElementById('editJournalForm');
             form.action = `/admin/journals/${journal.id}`;
             
-            document.getElementById('edit_journal_title').value = journal.title;
+                        document.getElementById('edit_journal_title').value = journal.title;
+            document.getElementById('edit_journal_category').value = journal.category || 'General';
             document.getElementById('edit_journal_excerpt').value = journal.excerpt || '';
             document.getElementById('edit_journal_content').value = journal.content;
             document.getElementById('edit_journal_is_published').checked = !!journal.is_published;

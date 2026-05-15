@@ -8,6 +8,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script id="tailwind-config">
         tailwind.config = {
           darkMode: "class",
@@ -191,17 +192,48 @@
     </div>
     <span class="font-display text-h3 tracking-tighter text-on-surface group-hover:text-primary transition-colors">whoizney.</span>
 </a>
-<div class="hidden md:flex space-x-8">
-<a class="font-label-mono text-label-mono text-on-surface-variant hover:text-on-surface transition-colors hover:backdrop-blur-2xl hover:bg-surface-bright/20 duration-300 px-3 py-2 rounded-md" href="/">Home</a>
-<a class="font-label-mono text-label-mono text-on-surface-variant hover:text-on-surface transition-colors hover:backdrop-blur-2xl hover:bg-surface-bright/20 duration-300 px-3 py-2 rounded-md" href="/data">Work</a>
-<a class="font-label-mono text-label-mono text-primary font-bold border-b border-primary pb-1 px-3 py-2 hover:backdrop-blur-2xl hover:bg-surface-bright/20 transition-all duration-300" href="/about">About</a>
-<a class="font-label-mono text-label-mono text-on-surface-variant hover:text-on-surface transition-colors hover:backdrop-blur-2xl hover:bg-surface-bright/20 duration-300 px-3 py-2 rounded-md" href="/journal">Journal</a>
-</div>
-<button onclick="window.location.href='mailto:{{ \App\Models\User::first()->email ?? 'nailahafidzhaha@gmail.com' }}?subject=Project%20Inquiry%20-%20whoizney'" class="font-label-mono text-label-mono text-primary border border-primary/50 hover:bg-primary hover:text-on-primary px-6 py-2 rounded-full transition-all duration-300 backdrop-blur-md active:scale-95">
+                <div class="hidden lg:flex space-x-8">
+                    <a class="font-label-mono text-label-mono text-on-surface-variant hover:text-on-surface transition-colors hover:backdrop-blur-2xl hover:bg-surface-bright/20 duration-300 px-3 py-2 rounded-md" href="/">Home</a>
+                    <a class="font-label-mono text-label-mono text-on-surface-variant hover:text-on-surface transition-colors hover:backdrop-blur-2xl hover:bg-surface-bright/20 duration-300 px-3 py-2 rounded-md" href="/data">Work</a>
+                    <a class="font-label-mono text-label-mono text-primary font-bold border-b border-primary pb-1 px-3 py-2 hover:backdrop-blur-2xl hover:bg-surface-bright/20 transition-all duration-300" href="/about">About</a>
+                    <a class="font-label-mono text-label-mono text-on-surface-variant hover:text-on-surface transition-colors hover:backdrop-blur-2xl hover:bg-surface-bright/20 duration-300 px-3 py-2 rounded-md" href="/journal">Journal</a>
+                </div>
+                <div class="flex items-center gap-4">
+                    <button onclick="window.location.href='mailto:{{ \App\Models\User::first()->email ?? 'nailahafidzhaha@gmail.com' }}?subject=Project%20Inquiry%20-%20whoizney'" class="hidden lg:flex font-label-mono text-label-mono text-primary border border-primary/50 hover:bg-primary hover:text-on-primary px-6 py-2 rounded-full transition-all duration-300 backdrop-blur-md active:scale-95">
+                        Hire Me
+                    </button>
+                    <button id="mobile-menu-button" class="lg:hidden text-on-surface-variant p-2 hover:text-primary transition-colors">
+                        <span class="material-symbols-outlined text-[32px]">menu</span>
+                    </button>
+                </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu Overlay -->
+    <div id="mobile-menu" class="fixed inset-0 bg-background/95 backdrop-blur-xl z-[100] hidden flex-col p-6 transition-all duration-300">
+        <div class="flex justify-between items-center mb-12">
+            <div class="flex items-center gap-2">
+                <div class="w-8 h-8 rounded bg-primary/10 border border-primary/30 flex items-center justify-center">
+                    <span class="material-symbols-outlined text-primary text-[20px]">blur_on</span>
+                </div>
+                <span class="font-display text-h3 tracking-tighter text-on-surface">whoizney.</span>
+            </div>
+            <button id="mobile-menu-close" class="text-on-surface-variant p-2 hover:text-primary transition-colors">
+                <span class="material-symbols-outlined text-[32px]">close</span>
+            </button>
+        </div>
+        <nav class="flex flex-col gap-6">
+            <a class="font-display text-4xl font-bold text-on-surface hover:text-primary transition-all duration-300" href="/">Home</a>
+            <a class="font-display text-4xl font-bold text-on-surface hover:text-primary transition-all duration-300" href="/data">Work</a>
+            <a class="font-display text-4xl font-bold text-primary transition-all duration-300" href="/about">About</a>
+            <a class="font-display text-4xl font-bold text-on-surface hover:text-primary transition-all duration-300" href="/journal">Journal</a>
+        </nav>
+        <div class="mt-auto">
+            <button onclick="window.location.href='mailto:{{ \App\Models\User::first()->email ?? 'nailahafidzhaha@gmail.com' }}?subject=Project%20Inquiry'" class="w-full bg-primary text-on-primary-fixed font-label-mono py-4 rounded-full font-bold uppercase tracking-widest active:scale-95 transition-all">
                 Hire Me
             </button>
-</div>
-</nav>
+        </div>
+    </div>
 <main class="pt-32 pb-24 px-margin-mobile md:px-margin-desktop max-w-[1280px] mx-auto overflow-hidden relative">
     <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-purple-600/20 rounded-full blur-[120px] -z-10 pointer-events-none"></div>
     <div class="absolute top-[20%] left-[-10%] w-[400px] h-[400px] bg-fuchsia-600/10 rounded-full blur-[100px] -z-10 pointer-events-none"></div>
@@ -274,25 +306,36 @@
             </h2>
 <div class="grid grid-cols-1 lg:grid-cols-3 gap-gutter">
 <!-- Radar Visualization Placeholder -->
-<div class="lg:col-span-2 glass-panel rounded-xl overflow-hidden relative min-h-[400px] flex items-center justify-center p-8 group">
-<div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-primary/5 via-background to-background pointer-events-none"></div>
-<img alt="Skill Radar Visualization" class="w-full h-full object-cover opacity-30 mix-blend-luminosity group-hover:opacity-50 transition-opacity duration-700" data-alt="A sophisticated, abstract digital radar chart visualization displayed on a dark glassmorphism monitor. The chart uses fine glowing lines in vibrant teal and neon purple against a deep navy-black background. Concentric polygons map out various skill metrics, emitting a subtle bloom effect. The surrounding UI elements consist of translucent dark panels and monospaced data readouts, embodying a high-performance command center aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuArW7wxhFF96gD5U8XrDl9WjmtZpF9ECnLMZRg3aNc7HB7rSO8g-vuXAqFw2snLNKpJPoyT3IHclrKOlmH8zz3lxzQ0KHRP5zPnz5mwLR0Bn_qx1fgsmzDsGaJPszGa1KX3afOVGf8oHVyLsNvLDCV7JrUxenTLDsLhRJEt00cNXOKbowWHAAPuxkOxsEZvID8lWOxuGYyD4Riuz3Wx70Va2CmhFT693MA3NtKvl2oRzWbDBIOnbbRULKx83RfjyeX9puZ0xQ7WnAo"/>
-<div class="absolute z-10 text-center">
-<span class="material-symbols-outlined text-display text-primary/50 animate-pulse">analytics</span>
-<p class="font-label-mono text-label-mono text-on-surface-variant mt-4 tracking-widest uppercase">System Profiling Active</p>
-</div>
-</div>
+                    <div class="lg:col-span-2 glass-panel rounded-xl overflow-hidden relative min-h-[400px] flex items-center justify-center p-8 group">
+                        <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-primary/5 via-background to-background pointer-events-none"></div>
+                        <canvas id="skillRadar" class="relative z-10 max-h-[350px] w-full"></canvas>
+                        <div id="radarFallback" class="absolute z-10 text-center hidden">
+                            <span class="material-symbols-outlined text-display text-primary/50 animate-pulse">analytics</span>
+                            <p class="font-label-mono text-label-mono text-on-surface-variant mt-4 tracking-widest uppercase">Initializing Data...</p>
+                        </div>
+                    </div>
 <!-- Tools List -->
 <div class="glass-panel rounded-xl p-8 space-y-8 flex flex-col justify-center">
 <div>
 <h3 class="font-h3 text-h3 text-on-surface mb-6">Core Stack</h3>
-<div class="flex flex-wrap gap-3">
-<span class="font-label-mono text-label-mono text-primary border border-primary/30 bg-primary/5 px-4 py-2 rounded-md hover:bg-primary/20 transition-colors cursor-default">Figma</span>
-<span class="font-label-mono text-label-mono text-tertiary border border-tertiary/30 bg-tertiary/5 px-4 py-2 rounded-md hover:bg-tertiary/20 transition-colors cursor-default">Tableau</span>
-<span class="font-label-mono text-label-mono text-secondary border border-secondary/30 bg-secondary/5 px-4 py-2 rounded-md hover:bg-secondary/20 transition-colors cursor-default">Python</span>
-<span class="font-label-mono text-label-mono text-primary-fixed border border-primary-fixed/30 bg-primary-fixed/5 px-4 py-2 rounded-md hover:bg-primary-fixed/20 transition-colors cursor-default">SQL</span>
-<span class="font-label-mono text-label-mono text-on-error-container border border-error/30 bg-error/5 px-4 py-2 rounded-md hover:bg-error/20 transition-colors cursor-default">Adobe CC</span>
-</div>
+                @php
+                    $colors = [
+                        'text-primary border-primary/30 bg-primary/5 hover:bg-primary/20',
+                        'text-tertiary border-tertiary/30 bg-tertiary/5 hover:bg-tertiary/20',
+                        'text-secondary border-secondary/30 bg-secondary/5 hover:bg-secondary/20',
+                        'text-primary-fixed border-primary-fixed/30 bg-primary-fixed/5 hover:bg-primary-fixed/20',
+                        'text-error border-error/30 bg-error/5 hover:bg-error/20'
+                    ];
+                @endphp
+                <div class="flex flex-wrap gap-3">
+                    @forelse($skills as $index => $skill)
+                        <span class="font-label-mono text-label-mono {{ $colors[$index % count($colors)] }} border px-4 py-2 rounded-md transition-colors cursor-default">
+                            {{ $skill->name }}
+                        </span>
+                    @empty
+                        <p class="text-on-surface-variant font-label-mono italic">No skills recorded yet.</p>
+                    @endforelse
+                </div>
 </div>
 <div class="pt-6 border-t border-outline-variant/30">
 <p class="font-body-md text-body-md text-on-surface-variant">
@@ -369,4 +412,91 @@
 <a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="#">Sitemap</a>
 </div>
 </footer>
+        <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Radar Chart Logic
+            const ctx = document.getElementById('skillRadar');
+            if (ctx) {
+                const skillsData = @json($skills);
+                
+                // Group by category or just take top 7 skills for best visualization
+                const labels = skillsData.slice(0, 7).map(s => s.name);
+                const proficiencies = skillsData.slice(0, 7).map(s => s.proficiency || 80);
+
+                if (labels.length > 0) {
+                    new Chart(ctx, {
+                        type: 'radar',
+                        data: {
+                            labels: labels,
+                            datasets: [{
+                                label: 'Proficiency',
+                                data: proficiencies,
+                                fill: true,
+                                backgroundColor: 'rgba(196, 198, 210, 0.2)',
+                                borderColor: '#c4c6d2',
+                                pointBackgroundColor: '#c4c6d2',
+                                pointBorderColor: '#fff',
+                                pointHoverBackgroundColor: '#fff',
+                                pointHoverBorderColor: '#c4c6d2'
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            elements: {
+                                line: { borderWidth: 2 }
+                            },
+                            scales: {
+                                r: {
+                                    angleLines: { color: 'rgba(144, 144, 150, 0.2)' },
+                                    grid: { color: 'rgba(144, 144, 150, 0.2)' },
+                                    pointLabels: {
+                                        color: '#c7c6cc',
+                                        font: { family: 'JetBrains Mono', size: 10 }
+                                    },
+                                    ticks: { display: false, stepSize: 20 },
+                                    suggestedMin: 0,
+                                    suggestedMax: 100
+                                }
+                            },
+                            plugins: {
+                                legend: { display: false }
+                            }
+                        }
+                    });
+                } else {
+                    document.getElementById('radarFallback').classList.remove('hidden');
+                    ctx.style.display = 'none';
+                }
+            }
+
+            // Mobile Menu Toggle
+            const menuBtn = document.getElementById('mobile-menu-button');
+            const closeBtn = document.getElementById('mobile-menu-close');
+            const mobileMenu = document.getElementById('mobile-menu');
+
+            if (menuBtn && closeBtn && mobileMenu) {
+                menuBtn.addEventListener('click', () => {
+                    mobileMenu.classList.remove('hidden');
+                    mobileMenu.classList.add('flex');
+                    document.body.style.overflow = 'hidden';
+                });
+
+                closeBtn.addEventListener('click', () => {
+                    mobileMenu.classList.add('hidden');
+                    mobileMenu.classList.remove('flex');
+                    document.body.style.overflow = 'auto';
+                });
+
+                // Close on link click
+                mobileMenu.querySelectorAll('a').forEach(link => {
+                    link.addEventListener('click', () => {
+                        mobileMenu.classList.add('hidden');
+                        mobileMenu.classList.remove('flex');
+                        document.body.style.overflow = 'auto';
+                    });
+                });
+            }
+        });
+    </script>
 </body></html>

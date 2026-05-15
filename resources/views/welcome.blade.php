@@ -125,17 +125,48 @@
     </div>
     <span class="font-display text-h3 tracking-tighter text-on-surface group-hover:text-primary transition-colors">whoizney.</span>
 </a>
-<div class="hidden md:flex gap-lg items-center">
-<a class="text-primary font-bold border-b border-primary pb-1 font-label-mono text-label-mono active:scale-95 transition-transform" href="/">Home</a>
-<a class="text-on-surface-variant hover:text-on-surface transition-colors font-label-mono text-label-mono hover:backdrop-blur-2xl hover:bg-surface-bright/20 duration-300 px-3 py-1 rounded-md" href="/data">Work</a>
-<a class="text-on-surface-variant hover:text-on-surface transition-colors font-label-mono text-label-mono hover:backdrop-blur-2xl hover:bg-surface-bright/20 duration-300 px-3 py-1 rounded-md" href="/about">About</a>
-<a class="text-on-surface-variant hover:text-on-surface transition-colors font-label-mono text-label-mono hover:backdrop-blur-2xl hover:bg-surface-bright/20 duration-300 px-3 py-1 rounded-md" href="/journal">Journal</a>
-</div>
-<button onclick="window.location.href='mailto:{{ \App\Models\User::first()->email ?? 'nailahafidzhaha@gmail.com' }}?subject=Project%20Inquiry%20-%20whoizney'" class="bg-primary/10 hover:bg-primary/20 text-primary border border-primary/30 font-label-mono text-label-mono px-4 py-2 rounded-full uppercase tracking-wider transition-colors">
+                <div class="hidden lg:flex gap-lg items-center">
+                    <a class="text-primary font-bold border-b border-primary pb-1 font-label-mono text-label-mono active:scale-95 transition-transform" href="/">Home</a>
+                    <a class="text-on-surface-variant hover:text-on-surface transition-colors font-label-mono text-label-mono hover:backdrop-blur-2xl hover:bg-surface-bright/20 duration-300 px-3 py-1 rounded-md" href="/data">Work</a>
+                    <a class="text-on-surface-variant hover:text-on-surface transition-colors font-label-mono text-label-mono hover:backdrop-blur-2xl hover:bg-surface-bright/20 duration-300 px-3 py-1 rounded-md" href="/about">About</a>
+                    <a class="text-on-surface-variant hover:text-on-surface transition-colors font-label-mono text-label-mono hover:backdrop-blur-2xl hover:bg-surface-bright/20 duration-300 px-3 py-1 rounded-md" href="/journal">Journal</a>
+                </div>
+                <div class="flex items-center gap-4">
+                    <button onclick="window.location.href='mailto:{{ \App\Models\User::first()->email ?? 'nailahafidzhaha@gmail.com' }}?subject=Project%20Inquiry%20-%20whoizney'" class="hidden lg:flex bg-primary/10 hover:bg-primary/20 text-primary border border-primary/30 font-label-mono text-label-mono px-4 py-2 rounded-full uppercase tracking-wider transition-colors">
+                        Hire Me
+                    </button>
+                    <button id="mobile-menu-button" class="lg:hidden text-on-surface-variant p-2 hover:text-primary transition-colors">
+                        <span class="material-symbols-outlined text-[32px]">menu</span>
+                    </button>
+                </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu Overlay -->
+    <div id="mobile-menu" class="fixed inset-0 bg-background/95 backdrop-blur-xl z-[100] hidden flex-col p-6 transition-all duration-300">
+        <div class="flex justify-between items-center mb-12">
+            <div class="flex items-center gap-2">
+                <div class="w-8 h-8 rounded bg-primary/10 border border-primary/30 flex items-center justify-center">
+                    <span class="material-symbols-outlined text-primary text-[20px]">blur_on</span>
+                </div>
+                <span class="font-display text-h3 tracking-tighter text-on-surface">whoizney.</span>
+            </div>
+            <button id="mobile-menu-close" class="text-on-surface-variant p-2 hover:text-primary transition-colors">
+                <span class="material-symbols-outlined text-[32px]">close</span>
+            </button>
+        </div>
+        <nav class="flex flex-col gap-6">
+            <a class="font-display text-4xl font-bold text-primary transition-all duration-300" href="/">Home</a>
+            <a class="font-display text-4xl font-bold text-on-surface hover:text-primary transition-all duration-300" href="/data">Work</a>
+            <a class="font-display text-4xl font-bold text-on-surface hover:text-primary transition-all duration-300" href="/about">About</a>
+            <a class="font-display text-4xl font-bold text-on-surface hover:text-primary transition-all duration-300" href="/journal">Journal</a>
+        </nav>
+        <div class="mt-auto">
+            <button onclick="window.location.href='mailto:{{ \App\Models\User::first()->email ?? 'nailahafidzhaha@gmail.com' }}?subject=Project%20Inquiry'" class="w-full bg-primary text-on-primary-fixed font-label-mono py-4 rounded-full font-bold uppercase tracking-widest active:scale-95 transition-all">
                 Hire Me
             </button>
-</div>
-</nav>
+        </div>
+    </div>
 <main class="flex-grow w-full max-w-[1280px] mx-auto px-margin-mobile md:px-margin-desktop grid grid-cols-4 md:grid-cols-12 gap-gutter py-xl">
 <!-- Hero Section -->
 <section class="col-span-4 md:col-span-12 min-h-[80vh] flex flex-col justify-center items-start pt-16 pb-32 relative">
@@ -236,4 +267,34 @@
 </div>
 </div>
 </footer>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const menuBtn = document.getElementById('mobile-menu-button');
+            const closeBtn = document.getElementById('mobile-menu-close');
+            const mobileMenu = document.getElementById('mobile-menu');
+
+            if (menuBtn && closeBtn && mobileMenu) {
+                menuBtn.addEventListener('click', () => {
+                    mobileMenu.classList.remove('hidden');
+                    mobileMenu.classList.add('flex');
+                    document.body.style.overflow = 'hidden';
+                });
+
+                closeBtn.addEventListener('click', () => {
+                    mobileMenu.classList.add('hidden');
+                    mobileMenu.classList.remove('flex');
+                    document.body.style.overflow = 'auto';
+                });
+
+                // Close on link click
+                mobileMenu.querySelectorAll('a').forEach(link => {
+                    link.addEventListener('click', () => {
+                        mobileMenu.classList.add('hidden');
+                        mobileMenu.classList.remove('flex');
+                        document.body.style.overflow = 'auto';
+                    });
+                });
+            }
+        });
+    </script>
 </body></html>
