@@ -138,7 +138,10 @@
 <span class="material-symbols-outlined text-sm">chevron_right</span>
 <a class="hover:text-primary transition-colors" href="/data">Work</a>
 <span class="material-symbols-outlined text-sm">chevron_right</span>
-<a class="hover:text-primary transition-colors text-accent-data" href="/{{ strtolower($project->category) }}">{{ ucfirst($project->category) }}</a>
+@php
+    $firstCategory = is_array($project->category) ? ($project->category[0] ?? 'data') : $project->category;
+@endphp
+<a class="hover:text-primary transition-colors text-accent-data" href="/{{ strtolower($firstCategory === 'uiux' ? 'ui-ux' : $firstCategory) }}">{{ $firstCategory === 'uiux' ? 'UI/UX' : ucfirst($firstCategory) }}</a>
 <span class="material-symbols-outlined text-sm">chevron_right</span>
 <span class="text-on-surface">{{ $project->title }}</span>
 </nav>
